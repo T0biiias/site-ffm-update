@@ -14,6 +14,10 @@ on:
       - '.github/workflows/backport.yml'
       - 'contrib/sign.sh'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   generate_target_matrix:
     runs-on: ubuntu-latest
